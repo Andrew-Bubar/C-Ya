@@ -1,5 +1,7 @@
-#include "win.h"
-#include "input.h"
+#include "Main.h"
+
+
+HWND windowHandle;
 
 DWORD CreateMainWindow(void){
 
@@ -7,7 +9,7 @@ DWORD CreateMainWindow(void){
 
     //initionalize the window
     WNDCLASSEXA windowClass = { 0 };
-    HWND windowHandle = 0;
+    windowHandle = 0;
 
     windowClass.cbSize = sizeof(WNDCLASSEX);
     windowClass.style = 0;
@@ -53,7 +55,27 @@ Exit:
     return result;
 }
 
-BOOL gameIsRunning(void){
+//process the game
+DWORD getInputs(){
+
+    MSG message = { 0 }; 
+    LRESULT result = 0;
+
+    mainGameIsRunning = TRUE;
+
+    while(mainGameIsRunning == TRUE){
+
+        while(PeekMessageA(&message, windowHandle, 0, 0, PM_REMOVE)){
+            
+            DispatchMessage(&message);
+            
+            update();
+        }
+    }
+}
+
+//see if the game is running
+BOOL gameIsRunning(){
 
     HANDLE mutex = NULL;
 
@@ -66,4 +88,32 @@ BOOL gameIsRunning(void){
     else{
         return FALSE;
     }
+}
+
+//handle inputs
+LRESULT CALLBACK MainWindowProduction(
+    _In_ HWND windowhandle, _In_ UINT message, 
+    _In_ WPARAM wParam, _In_ LPARAM lParam
+    ){ 
+
+    LRESULT result = 0;
+ 
+    switch (message) 
+    { 
+
+        case WM_CLOSE:{
+
+            mainGameIsRunning = FALSE;
+
+
+            PostQuitMessage(0);
+
+            break;
+        }
+
+        default: 
+            result = DefWindowProc(windowhandle, message, wParam, lParam); 
+    } 
+
+    return result; 
 }

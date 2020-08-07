@@ -1,5 +1,4 @@
-#include "engine/win.c"
-#include "engine/input.c"
+#include "engine/Main.c"
 
 int WinMain(HINSTANCE instance, HINSTANCE previousInstance, 
     PSTR ComandLine, INT nCmdShow
@@ -29,4 +28,9 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance,
 
 Exit:
     return 0;
+}
+
+DWORD update(){
+
+    printf("testing \n");
 }
