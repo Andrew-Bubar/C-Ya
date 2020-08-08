@@ -3,7 +3,7 @@
 
 HWND windowHandle;
 
-DWORD CreateMainWindow(void){
+DWORD CreateMainWindow(int width, int height){
 
     DWORD result = ERROR_SUCCESS;
 
@@ -38,8 +38,12 @@ DWORD CreateMainWindow(void){
     windowHandle = CreateWindowEx(
         WS_EX_CLIENTEDGE, windowClass.lpszClassName, gameName,
         WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT,
-        240, 120, NULL, NULL, GetModuleHandleA(NULL), NULL
+        width, height, NULL, NULL, GetModuleHandleA(NULL), NULL
     );
+
+    //things i need up update
+    getInputs();
+
 
     if(windowHandle == NULL){
 
@@ -55,8 +59,26 @@ Exit:
     return result;
 }
 
+//make creating the window easier on the game script
+int makeWindow(int x, int y){
+
+    if(CreateMainWindow(x, y) != ERROR_SUCCESS){
+
+        return 0;
+    }
+}
+
+//rendering the game
+void RenderGraphics(int resolutionx, int resolutiony){
+
+    canvas.CanvasInfo.bmiHeader.biSize = sizeof(canvas.CanvasInfo.bmiHeader);
+
+    canvas.CanvasInfo.bmiHeader.biWidth = 256;
+    canvas.CanvasInfo.bmiHeader.biHeight = 240;
+}
+
 //process the game
-DWORD getInputs(){
+void getInputs(){
 
     MSG message = { 0 }; 
     LRESULT result = 0;
@@ -68,10 +90,17 @@ DWORD getInputs(){
         while(PeekMessageA(&message, windowHandle, 0, 0, PM_REMOVE)){
             
             DispatchMessage(&message);
-            
+
             update();
+
+            Sleep(1);
         }
     }
+}
+
+short GetKey(int KeyCode){
+
+    return GetAsyncKeyState(KeyCode);
 }
 
 //see if the game is running
@@ -116,4 +145,10 @@ LRESULT CALLBACK MainWindowProduction(
     } 
 
     return result; 
+}
+
+void SetGameName(char name[]){
+
+    #undef gameName
+    #define gameName name
 }

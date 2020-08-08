@@ -1,13 +1,8 @@
 #include "engine/Main.c"
 
-int WinMain(HINSTANCE instance, HINSTANCE previousInstance, 
-    PSTR ComandLine, INT nCmdShow
-){
+int main(void){
 
-    UNREFERENCED_PARAMETER(instance);
-    UNREFERENCED_PARAMETER(previousInstance);
-    UNREFERENCED_PARAMETER(ComandLine);
-    UNREFERENCED_PARAMETER(nCmdShow);
+    SetGameName("testing");
 
     //error checking
     if(gameIsRunning() == TRUE){
@@ -19,18 +14,13 @@ int WinMain(HINSTANCE instance, HINSTANCE previousInstance,
         goto Exit;
     }
 
-    if(CreateMainWindow() != ERROR_SUCCESS){
-
-        goto Exit;
-    }
-
-    getInputs();
+    makeWindow(640, 480);
 
 Exit:
     return 0;
 }
 
-DWORD update(){
+void update(){
 
-    printf("testing \n");
+
 }

@@ -7,3 +7,7 @@ The primary goal is to give a nice C frame-work for people new to the language.
 As well as for those who just want to wip up an application quickly.
 
 I used gcc as my compialer, and vsCode as my IDE (as I'm sure is obvious).
+
+CURRENT BUGS:
+
+1. SetGameName currently doesn't work sadly. Though I put progress of that on the back burner as I work on rendering as of writting.
