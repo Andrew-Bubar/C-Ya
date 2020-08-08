@@ -19,7 +19,7 @@ DWORD CreateMainWindow(int width, int height){
     windowClass.hInstance = GetModuleHandleA(NULL);
     windowClass.hIcon = LoadIconA(NULL, IDI_APPLICATION);
     windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    windowClass.hbrBackground = (HBRUSH)(COLOR_WINDOW - 1);
     windowClass.lpszMenuName =  NULL;
     windowClass.lpszClassName = gameName "WindowClass";
     windowClass.hIconSm = LoadIconA(NULL, IDI_APPLICATION);
@@ -69,12 +69,36 @@ int makeWindow(int x, int y){
 }
 
 //rendering the game
-void RenderGraphics(int resolutionx, int resolutiony){
+void RenderGraphics(int BitsPerPixel, int resolutionx, int resolutiony){
+
+    int RenderAreaMemorySize = resolutionx * resolutiony * (BitsPerPixel / 8);
 
     canvas.CanvasInfo.bmiHeader.biSize = sizeof(canvas.CanvasInfo.bmiHeader);
 
-    canvas.CanvasInfo.bmiHeader.biWidth = 256;
-    canvas.CanvasInfo.bmiHeader.biHeight = 240;
+    canvas.CanvasInfo.bmiHeader.biWidth = resolutionx;
+    canvas.CanvasInfo.bmiHeader.biHeight = resolutiony;
+
+    canvas.CanvasInfo.bmiHeader.biBitCount = BitsPerPixel;
+
+    canvas.CanvasInfo.bmiHeader.biCompression = BI_RGB;
+
+    canvas.CanvasInfo.bmiHeader.biPlanes = 1;
+
+    if((canvas.Memory = VirtualAlloc(NULL, RenderAreaMemorySize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE)) == NULL){
+        
+        MessageBox(
+            NULL,"Failed to save memory for my canvas", 
+            "error.", MB_ICONEXCLAMATION | MB_OK
+        );
+
+        exit(0);
+    }
+
+    HDC deviceContext = GewtDC(windowHandle);
+
+    StretchBlt(deviceContext,)
+
+    releaseDC(windowHandle, deviceContext);
 }
 
 //process the game

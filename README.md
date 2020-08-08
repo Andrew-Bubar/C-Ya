@@ -6,7 +6,7 @@ I also have it under the MIT license so you may do with it as you wish.
 The primary goal is to give a nice C frame-work for people new to the language. 
 As well as for those who just want to wip up an application quickly.
 
-I used gcc as my compialer, and vsCode as my IDE (as I'm sure is obvious).
+I used gcc as my compiler, and vsCode as my IDE (as I'm sure is obvious).
 
 CURRENT BUGS:
 

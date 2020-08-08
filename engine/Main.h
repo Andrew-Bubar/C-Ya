@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <windows.h>
+#include <wingdi.h>
 #define gameName "GameName"
 
 //to create the window
@@ -11,7 +12,7 @@ DWORD CreateMainWindow(int width, int height);
 int makeWindow(int x, int y);
 
 //render the window
-void RenderGraphics(int resolutionx, int resolutiony);
+void RenderGraphics(int BitsPerPixel, int resolutionx, int resolutiony);
 
 //my graphic data 
 typedef struct Canvas{

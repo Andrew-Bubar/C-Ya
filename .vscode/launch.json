@@ -8,7 +8,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "${workspaceFolder}/main.exe",
+            "program": "${workspaceFolder}/examplegame.exe",
             "processId": "${command:pickProcess}",
             "MIMode": "gdb",
             "miDebuggerPath": "/path/to/gdb",
